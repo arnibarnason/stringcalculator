@@ -43,7 +43,14 @@ public class Calculator {
 			}
 		}
 		if(negatives.size() != 0){
-			throw new RuntimeException("Negatives not allowed: -4,-1");
+			String negNumbers = new String();
+			negNumbers = "Negatives not allowed: ";
+			for(String neg : negatives){	
+				negNumbers += negatives;
+				negNumbers += ",";
+			}
+			negNumbers.substring(0,negNumbers.length()-1);
+			throw new RuntimeException(negNumbers);
 		}
 	}
 

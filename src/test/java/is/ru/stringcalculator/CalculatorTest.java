@@ -44,4 +44,10 @@ public class CalculatorTest {
         		throws Exception {
     	assertEquals("Negatives not allowed: -4,-1", Calculator.add("2,-4,7,-1"));
 	}
+
+	@Test(expected = RuntimeException.class)
+	public void testNegativeNumberExceptionNewInput()
+        		throws Exception {
+    	assertEquals("Negatives not allowed: -2,-4,-7", Calculator.add("//;\n-2;-4;-7;1"));
+	}
 }
