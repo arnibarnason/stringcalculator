@@ -6,6 +6,9 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
+		else if(text.contains(",") && text.contains("\n")){
+			return sum(splitNumbersCommaNewLineDelim(text));
+		}
 		else if(text.contains(",")){
 			return sum(splitNumbers(text));
 		}
@@ -21,6 +24,9 @@ public class Calculator {
 	    return numbers.split(",");
 	}
       
+	private static String[] splitNumbersCommaNewLineDelim(String numbers){
+	    return numbers.split(",|\\n");
+	}
     private static int sum(String[] numbers){
  	    int total = 0;
         for(String number : numbers){
