@@ -30,6 +30,10 @@ public class Calculator {
 			return 1;
 	}
 
+	/**
+	 * If input states there are multiple delimiters, this function adds all the delimiters
+	 * to an ArrayList and returns it
+	 */
 	private static ArrayList<String> addDelimiters(String text) {
 		ArrayList<String> newDelimiters = new ArrayList<String>();
 		int currPosStart = text.indexOf("[");
@@ -50,21 +54,33 @@ public class Calculator {
 		
 	}
 
+	/**
+         * Changes a string to an integer
+         */
 	private static int toInt(String number){
 		return Integer.parseInt(number);
 	}
       
+	/**
+         * Splits a string on both "," and "\n"
+         */
 	private static String[] splitNumbers(String numbers){
 		return numbers.split(",|\\n");
 	}
-
+	
+        /**
+         * Splits string on all sorts of delimiters
+         */
 	private static String[] splitCustomDelim(String numbers, ArrayList<String> delimiter) {
 		for(int i = 0; i < delimiter.size(); i++) {
 			numbers = onlyNumbersToAdd(numbers).replace(delimiter.get(i), ",");		
 		}
 		return numbers.split(",");
 	}
-
+	   
+	/**
+         * Throws error if the input contains a negative number
+         */
 	private static void checkIfNegative(String[] numbers){
 		String negNumbers = new String();
 		negNumbers = "Negatives not allowed: ";
@@ -81,12 +97,19 @@ public class Calculator {
 		}
 	}
 
+        /**
+         * If the input string contains a line containing custom delimiters, this returns the whole string 
+	 * except the first line containing the list of delimiters
+         */
 	private static String onlyNumbersToAdd(String text){
 		String newString = new String();
 		newString = text.substring(text.indexOf("\n") + 1, text.length());
 		return newString;
 	}
 
+        /**
+         * Sums up the numbers of the string and returns the total
+         */
 	private static int sum(String[] numbers){
  		int total = 0;
 		checkIfNegative(numbers);
