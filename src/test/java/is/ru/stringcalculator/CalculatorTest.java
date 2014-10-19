@@ -2,6 +2,8 @@ package is.ru.stringcalculator;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.Rule;
 
 public class CalculatorTest {
 
@@ -38,16 +40,23 @@ public class CalculatorTest {
 	public void testCustomDelimiter(){
     	assertEquals(3, Calculator.add("//;\n1;2"));
    	}
+	
+	@Rule
+ 	public ExpectedException thrown = ExpectedException.none();
 
-	@Test(expected = RuntimeException.class)
-	public void testNegativeNumberException()
-        		throws Exception {
-    	assertEquals("Negatives not allowed: -4,-1", Calculator.add("2,-4,7,-1"));
+	@Test
+	public void throwExceptionIfNegatives() {
+    		thrown.expect( RuntimeException.class );
+    		thrown.expectMessage("Negatives not allowed: -4,-1");
+
+    		Calculator.add("2,-4,7,-1");
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testNegativeNumberExceptionNewInput()
-        		throws Exception {
-    	assertEquals("Negatives not allowed: -2,-4,-7", Calculator.add("//;\n-2;-4;-7;1"));
-	}
+        @Test
+        public void throwExceptionIfNegativesCustomDelimiter() {
+                thrown.expect( RuntimeException.class );
+                thrown.expectMessage("Negatives not allowed: -4,-1,-2");
+
+                Calculator.add("//;\n2;-4;-1;-2");
+        }
 }

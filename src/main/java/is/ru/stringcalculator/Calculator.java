@@ -36,21 +36,18 @@ public class Calculator {
 	}
 
 	private static void checkIfNegative(String[] numbers){
-		ArrayList<String> negatives = new ArrayList<String>();
+		String negNumbers = new String();
+		negNumbers = "Negatives not allowed: ";
+		boolean count = false;
 		for(String number : numbers){
 			if(toInt(number) < 0){
-				negatives.add(number);
+				negNumbers += number;
+				negNumbers += ",";
+				count = true;
 			}
 		}
-		if(negatives.size() != 0){
-			String negNumbers = new String();
-			negNumbers = "Negatives not allowed: ";
-			for(String neg : negatives){	
-				negNumbers += negatives;
-				negNumbers += ",";
-			}
-			negNumbers.substring(0,negNumbers.length()-1);
-			throw new RuntimeException(negNumbers);
+		if(count){
+			throw new RuntimeException(negNumbers.substring(0,negNumbers.length()-1));
 		}
 	}
 
@@ -68,7 +65,5 @@ public class Calculator {
 		}
 		return total;
     }
-
-
 
 }
