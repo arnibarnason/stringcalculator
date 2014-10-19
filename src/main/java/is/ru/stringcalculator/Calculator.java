@@ -1,5 +1,6 @@
 package is.ru.stringcalculator;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class Calculator {
 	
@@ -9,9 +10,14 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
-		
+
+	       	else if(text.startsWith("//[")){
+                        delimmiter = Pattern.quote(text.substring(3, text.indexOf("]")));
+                        return sum(splitCustomDelim(onlyNumbersToAdd(text)));
+                }
+
 		else if(text.startsWith("//")){
-			delimmiter = String.valueOf(text.charAt(2));
+			delimmiter = Pattern.quote(text.substring(2, text.indexOf("\n")));
 			return sum(splitCustomDelim(onlyNumbersToAdd(text)));
 		}
 
@@ -53,7 +59,7 @@ public class Calculator {
 
 	private static String onlyNumbersToAdd(String text){
 		String newString = new String();
-		newString = text.substring(4, text.length());
+		newString = text.substring(text.indexOf("\n") + 1, text.length());
 		return newString;
 	}
 

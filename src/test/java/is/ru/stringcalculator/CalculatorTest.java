@@ -69,5 +69,9 @@ public class CalculatorTest {
         public void ignoreBiggerThanThousand() {
                 assertEquals(19, Calculator.add("//&\n15&4&1001"));
         }
-
+	
+	@Test
+	public void allowMultiCharacterDelimiter() {
+		assertEquals(8, Calculator.add("//[***]\n3***1***4"));
+	}
 }
