@@ -74,4 +74,30 @@ public class CalculatorTest {
 	public void allowMultiCharacterDelimiter() {
 		assertEquals(8, Calculator.add("//[***]\n3***1***4"));
 	}
+	
+	@Test
+	public void allowMultipleSingleCharacterDelimiter() {
+		assertEquals(13, Calculator.add("//[&][*]\n4&3*2&2&2"));
+	}
+
+	@Test
+	public void allowMultipleMultiCharacterDelimiters() {
+		assertEquals(13, Calculator.add("//[&&&][**]\n4&&&3**2&&&2&&&2"));
+	}
+
+	@Test
+	public void allowAllSortsOfDelimiters() {
+		assertEquals(13, Calculator.add("//[&][***][$$$$]\n4&3***2$$$$2&2"));
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

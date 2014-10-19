@@ -13,7 +13,7 @@ public class Calculator {
 		}
 
 	       	else if(text.startsWith("//[")){
-                        delimiter.add(Pattern.quote(text.substring(3, text.indexOf("]"))));
+			delimiter = addDelimiters(text);		
                         return sum(splitCustomDelim(onlyNumbersToAdd(text), delimiter));
                 }
 
@@ -30,6 +30,26 @@ public class Calculator {
 			return 1;
 	}
 
+	private static ArrayList<String> addDelimiters(String text) {
+		ArrayList<String> newDelimiters = new ArrayList<String>();
+		int currPosStart = text.indexOf("[");
+		int prevPosStart = 0;
+		int currPosEnd = text.indexOf("]");
+		int prevPosEnd = 0;
+		// Found this clever way on stack overflow, created by Andreas Wederbrand
+		int countDelimiters = text.length() - text.replace("[", "").length();
+		boolean end = false;
+		for (int i = 0; i < countDelimiters; i++) {
+			newDelimiters.add(text.substring(currPosStart + 1, currPosEnd));
+			prevPosStart = currPosStart;
+			currPosStart = text.indexOf("[", prevPosStart + 1);
+			prevPosEnd = currPosEnd;
+                        currPosEnd = text.indexOf("]", prevPosEnd + 1);
+		}
+		return newDelimiters;
+		
+	}
+
 	private static int toInt(String number){
 		return Integer.parseInt(number);
 	}
@@ -39,7 +59,10 @@ public class Calculator {
 	}
 
 	private static String[] splitCustomDelim(String numbers, ArrayList<String> delimiter) {
-		return numbers.split(delimiter.get(0));
+		for(int i = 0; i < delimiter.size(); i++) {
+			numbers = onlyNumbersToAdd(numbers).replace(delimiter.get(i), ",");		
+		}
+		return numbers.split(",");
 	}
 
 	private static void checkIfNegative(String[] numbers){
