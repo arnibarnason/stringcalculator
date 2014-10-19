@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Calculator {
 	
-	private static String delimmiter;
+	private static String delimiter;
 	
 	public static int add(String text){
 		if(text.equals("")){
@@ -12,12 +12,12 @@ public class Calculator {
 		}
 
 	       	else if(text.startsWith("//[")){
-                        delimmiter = Pattern.quote(text.substring(3, text.indexOf("]")));
+                        delimiter = Pattern.quote(text.substring(3, text.indexOf("]")));
                         return sum(splitCustomDelim(onlyNumbersToAdd(text)));
                 }
 
 		else if(text.startsWith("//")){
-			delimmiter = Pattern.quote(text.substring(2, text.indexOf("\n")));
+			delimiter = String.valueOf(text.charAt(2));
 			return sum(splitCustomDelim(onlyNumbersToAdd(text)));
 		}
 
@@ -38,7 +38,7 @@ public class Calculator {
 	}
 
 	private static String[] splitCustomDelim(String numbers){
-		return numbers.split(delimmiter);
+		return numbers.split(delimiter);
 	}
 
 	private static void checkIfNegative(String[] numbers){
