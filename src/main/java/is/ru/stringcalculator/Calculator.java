@@ -4,21 +4,22 @@ import java.util.regex.Pattern;
 
 public class Calculator {
 	
-	private static String delimiter;
-	
 	public static int add(String text){
+		
+		ArrayList<String> delimiter = new ArrayList<String>();
+
 		if(text.equals("")){
 			return 0;
 		}
 
 	       	else if(text.startsWith("//[")){
-                        delimiter = Pattern.quote(text.substring(3, text.indexOf("]")));
-                        return sum(splitCustomDelim(onlyNumbersToAdd(text)));
+                        delimiter.add(Pattern.quote(text.substring(3, text.indexOf("]"))));
+                        return sum(splitCustomDelim(onlyNumbersToAdd(text), delimiter));
                 }
 
 		else if(text.startsWith("//")){
-			delimiter = String.valueOf(text.charAt(2));
-			return sum(splitCustomDelim(onlyNumbersToAdd(text)));
+			delimiter.add(String.valueOf(text.charAt(2)));
+			return sum(splitCustomDelim(onlyNumbersToAdd(text), delimiter));
 		}
 
 		else if(text.contains(",") || text.contains("\n")){
@@ -37,8 +38,8 @@ public class Calculator {
 		return numbers.split(",|\\n");
 	}
 
-	private static String[] splitCustomDelim(String numbers){
-		return numbers.split(delimiter);
+	private static String[] splitCustomDelim(String numbers, ArrayList<String> delimiter) {
+		return numbers.split(delimiter.get(0));
 	}
 
 	private static void checkIfNegative(String[] numbers){
